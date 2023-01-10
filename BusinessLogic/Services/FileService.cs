@@ -25,7 +25,7 @@ namespace BuisnessLogic.Services
 
         public IQueryable<FileViewModel> GetFiles()
         {
-            var list = from f in fr.GetFiles()
+            var list = from f in fr.GetFileEntries()
                        select new FileViewModel()
                        {
                            FileName = f.FileName,
@@ -41,6 +41,27 @@ namespace BuisnessLogic.Services
         public FileViewModel GetFile(Guid Fname)
         {
             return GetFiles().SingleOrDefault(x => x.FileName == Fname);
+        }
+
+        public IQueryable<AclViewModel> GetPermissions()
+        {
+            var list = from f in fr.GetPermissions()
+                       select new AclViewModel()
+                       {
+                            FileName = f.FileName,
+                            TextFileModel = f.TextFileModel,
+                            Username = f.Username
+                       };
+            return list;
+        }
+
+        public void ShareFile(string recipient, Guid File)
+        {
+            fr.ShareFile(new Domain.Models.AclModel()
+            {
+                FileName = File,
+                Username = recipient
+            });
         }
     }
 }

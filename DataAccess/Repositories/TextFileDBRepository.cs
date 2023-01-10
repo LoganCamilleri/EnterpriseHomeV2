@@ -16,9 +16,19 @@ namespace DataAccess.Repositories
             context = _context;
         }
 
-        public IQueryable<TextFileModel> GetFiles()
+        public IQueryable<TextFileModel> GetFileEntries()
         { 
             return context.TextFiles; 
+        }
+
+        public TextFileModel GetFile(Guid name)
+        {
+            return context.TextFiles.SingleOrDefault(x => x.FileName == name);
+        }
+
+        public IQueryable<AclModel> GetPermissions()
+        {
+            return context.Acls;
         }
 
         public void AddFile(TextFileModel f)
@@ -36,10 +46,26 @@ namespace DataAccess.Repositories
             context.SaveChanges();
         }
 
-        public void EditFile()
-        { }
+        public void EditFile(TextFileModel updatedFile)
+        {
+            var originalFile = GetFile(updatedFile.FileName);
 
-        public void ShareFile()
-        { }
+            originalFile.Data = updatedFile.Data;
+            originalFile.LastEditedBy = updatedFile.LastEditedBy;
+            originalFile.LastUpdated = DateTime.Now;
+
+            context.SaveChanges();
+        }
+
+        public void ShareFile(AclModel a)
+        {
+            AclModel acl = new AclModel()
+            {
+                FileName = a.FileName,
+                Username = a.Username
+            };
+            context.Acls.Add(a);
+            context.SaveChanges();
+        }
     }
 }

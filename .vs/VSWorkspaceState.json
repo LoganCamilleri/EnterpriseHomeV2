@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BusinessLogic",
+    "\\BusinessLogic\\Services",
+    "\\DataAccess",
+    "\\DataAccess\\Repositories",
+    "\\Domain",
+    "\\Domain\\Models"
   ],
-  "SelectedNode": "\\Home.sln",
+  "SelectedNode": "\\DataAccess\\Repositories\\TextFileDBRepository.cs",
   "PreviewInSolutionExplorer": false
 }
