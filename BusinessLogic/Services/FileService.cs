@@ -63,5 +63,18 @@ namespace BuisnessLogic.Services
                 Username = recipient
             });
         }
+
+        public void EditFile(Guid Fname, CreateFileViewModel updatedFile)
+        {
+            fr.EditFile(
+                new Domain.Models.TextFileModel()
+                {
+                    Data = updatedFile.Data,
+                    LastEditedBy = updatedFile.Author,
+                    LastUpdated = DateTime.Now
+                }
+                );
+
+        }
     }
 }

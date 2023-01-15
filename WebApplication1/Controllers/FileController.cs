@@ -23,8 +23,43 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult Create(CreateFileViewModel data)
         {
-            fileService.AddFile(data);
+            try
+            {
+                fileService.AddFile(data);
+                ViewBag.Message = "File Successfully inserted";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "File could not be inserted";
+            }
+            return View();
+        }
 
+        [HttpGet]
+        public IActionResult Edit(Guid Fname)
+        {
+            var originalFile = fileService.GetFile(Fname);
+
+            CreateFileViewModel model = new CreateFileViewModel();
+            model.Data = originalFile.Data;
+            model.LastEditedBy = originalFile.LastEditedBy;
+            model.LastUpdated = DateTime.Now;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Share(string recipient, Guid File)
+        {
+            try
+            {
+                fileService.ShareFile(recipient, File);
+                ViewBag.Message = "File Successfully shared";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "File could not be shared";
+            }
             return View();
         }
     }
