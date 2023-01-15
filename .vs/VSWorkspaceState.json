@@ -6,8 +6,11 @@
     "\\DataAccess",
     "\\DataAccess\\Repositories",
     "\\Domain",
-    "\\Domain\\Models"
+    "\\Domain\\Models",
+    "\\WebApplication1",
+    "\\WebApplication1\\Controllers",
+    "\\WebApplication1\\Views"
   ],
-  "SelectedNode": "\\DataAccess\\Repositories\\TextFileDBRepository.cs",
+  "SelectedNode": "\\WebApplication1\\Controllers\\FileController.cs",
   "PreviewInSolutionExplorer": false
 }
